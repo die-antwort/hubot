@@ -9,4 +9,4 @@ module.exports = (robot) ->
   robot.respond /mach mir Tee( in (\d+))?/i, (msg) ->
     timeout = msg.match[2] || defaultTimeout
     msg.send "Tee machen kann ich leider noch nicht. Aber ich werde dich in " + timeout + " Minuten daran erinnern, dass dein Tee fertig ist."
-    setTimeout (-> remind(msg)), timeout * 1000 #* 60
+    setTimeout (-> remind(msg)), timeout * 1000 * 60
