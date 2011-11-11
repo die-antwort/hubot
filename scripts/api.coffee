@@ -9,7 +9,7 @@ Port = 1337
 module.exports = (robot) ->
   server = (req, res) ->
     res.writeHead 200, "Content-Type": "text/plain"
-    res.end "Hello Worldn\n"
+    res.end "OK\n"
     params = URL.parse(req.url, true).query
     robot.send robot.userForName("Hubot"), params.msg
     
