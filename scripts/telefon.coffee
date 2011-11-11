@@ -3,7 +3,7 @@
 HTTP = require "http"
 URL = require "url"
 
-Port = 1337
+Port = 8168
 
 module.exports = (robot) ->
   server = (req, res) ->
