@@ -3,8 +3,6 @@
 HTTP = require "http"
 URL = require "url"
 
-Port = 8168
-
 module.exports = (robot) ->
   server = (req, res) ->
     res.writeHead 200, "Content-Type": "text/plain"
@@ -13,4 +11,4 @@ module.exports = (robot) ->
     console.log params 
     robot.send null, "Telefon! Es ruft an: #{params.caller} (#{params.nr})"
     
-  HTTP.createServer(server).listen Port, "0.0.0.0"
+  HTTP.createServer(server).listen process.env.PORT, "0.0.0.0"
