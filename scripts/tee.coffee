@@ -4,7 +4,7 @@ DefaultTimeout = 4 # minutes
 TeaImg = 'http://farm7.static.flickr.com/6054/6347191874_0a23abccc0_s.jpg'
 
 remind = (msg) ->
-  msg.reply "#{TeaImg} Dein Tee ist fertig!"
+  msg.reply "Dein Tee ist fertig! #{TeaImg}"
   
 module.exports = (robot) ->
   robot.respond /mach mir Tee( in (\d+))?/i, (msg) ->
