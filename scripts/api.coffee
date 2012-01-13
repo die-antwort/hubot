@@ -1,5 +1,8 @@
-# Startet einen HTTP-Server und bietet ein Mini-API an:
+
+# Startet einen HTTP-Server und bietet ein Mini-API an: 
 # /?msg=Das+soll+Hubot+im+Chat+sagen
+#
+# (erste Zeile im File leer lassen, damit dieser Kommentar nicht bei "hubot help" angezeigt wird.)
 
 HTTP = require "http"
 URL = require "url"
