@@ -1,19 +1,25 @@
 # Respond to greetings
 
 module.exports = (robot) ->
-  robot.enter (msg) ->
-    msg.send "Hallo!"
-
-  robot.hear /^(hallo|hi|hey|guten morgen)/i, (msg) ->
-    username = msg.message.user?.name
-    return if username == "Hubot" # Hubot shouldn't greet himself.
+  respondTo = (regex, handler) ->
+    robot.hear regex, (msg) ->
+      name = msg.message.user.name
+      return if name == "Hubot"
+      msg.send handler(name)
+      
+  respondTo /^(hallo|hi|hey|guten morgen)/i, (name) ->
     hour = new Date().getHours()
-    greeting = if 6 <= hour < 12
-      "Guten Morgen, #{username}!" 
+    if 6 <= hour < 12
+      "Guten Morgen, #{name}!" 
     else if 12 <= hour < 18
-      "Hallo #{username}!"
+      "Hallo #{name}!"
     else if 18 <= hour < 24
-      "Guten Abend, #{username}!"
+      "Guten Abend, #{name}!"
     else
-      "Um diese Uhrzeit, #{username}? Das ist nicht dein Ernst, oder?"
-    msg.send greeting
+      "Um diese Uhrzeit, #{name}? Das ist nicht dein Ernst, oder?"
+    
+  respondTo /^re/i, (name) ->
+    "Willkommen zurück, #{name}!"
+    
+  respondTo /^mahlzeit/i, (name) ->
+    "Mahlzeit!"
