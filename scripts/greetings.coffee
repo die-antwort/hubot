@@ -7,7 +7,7 @@ module.exports = (robot) ->
       return if name == "Hubot"
       msg.send handler(name)
       
-  respondTo /^(hallo|hi|hey|guten morgen)/i, (name) ->
+  respondTo /^(hallo|hi|hey|guten morgen)\b/i, (name) ->
     hour = new Date().getHours()
     if 6 <= hour < 12
       "Guten Morgen, #{name}!" 
