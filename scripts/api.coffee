@@ -4,16 +4,16 @@
 #
 # (erste Zeile im File leer lassen, damit dieser Kommentar nicht bei "hubot help" angezeigt wird.)
 
-HTTP = require "http"
 URL = require "url"
 
-Port = 1337
-
 module.exports = (robot) ->
-  server = (req, res) ->
+  robot.router.get "/", (req, res) ->
     res.writeHead 200, "Content-Type": "text/plain"
     res.end "OK\n"
     params = URL.parse(req.url, true).query
-    robot.send robot.userForName("Hubot"), params.msg
+    user = robot.userForName("Hubot")
+
+    # TODO: Warum müssen wir das hier setzen? (Wenn wir's nicht tun kommt ein Fehler in Session.send)
+    user.flow = "die-antwort:main"
     
-  HTTP.createServer(server).listen Port, "127.0.0.1"
+    robot.send user, params.msg
