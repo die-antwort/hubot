@@ -1,4 +1,5 @@
-# Respond to greetings
+# Description
+#   Respond to greetings
 
 module.exports = (robot) ->
   respondTo = (regex, handler) ->
@@ -18,8 +19,8 @@ module.exports = (robot) ->
     else
       "Um diese Uhrzeit, #{name}? Das ist nicht dein Ernst, oder?"
     
-  respondTo /^re/i, (name) ->
+  respondTo /^re\b/i, (name) ->
     "Willkommen zurück, #{name}!"
     
-  respondTo /^mahlzeit/i, (name) ->
+  respondTo /^mahlzeit\b/i, (name) ->
     "Mahlzeit!"
