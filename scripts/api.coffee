@@ -9,4 +9,7 @@ module.exports = (robot) ->
     res.writeHead 200, "Content-Type": "text/plain"
     res.end "OK\n"
     params = URL.parse(req.url, true).query
-    robot.send {}, params.text if params.text
+
+    if params.text
+      robot.send {flow: "die-antwort:main"}, params.text
+      robot.send {flow: "die-antwort:talk"}, params.text
