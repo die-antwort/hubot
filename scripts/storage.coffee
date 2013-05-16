@@ -1,14 +1,16 @@
-# Inspect the data in redis easily
+# Description:
+#   Inspect the data in redis easily
 #
-# show users - Display all users that hubot knows about
-# show storage - Display the contents that are persisted in redis
-#
+# Commands:
+#   hubot show users - Display all users that hubot knows about
+#   hubot show storage - Display the contents that are persisted in the brain
 
-Sys = require "sys"
+
+Util = require "util"
 
 module.exports = (robot) ->
   robot.respond /show storage$/i, (msg) ->
-    output = Sys.inspect(robot.brain.data, false, 4)
+    output = Util.inspect(robot.brain.data, false, 4)
     msg.send output
 
   robot.respond /show users$/i, (msg) ->
@@ -20,3 +22,4 @@ module.exports = (robot) ->
       response += "\n"
 
     msg.send response
+
