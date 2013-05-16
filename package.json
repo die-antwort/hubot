@@ -20,7 +20,11 @@
     "hubot-scripts": ">= 2.4.1",
     "optparse": "1.0.3",
     
-    "cheerio": ""
+    "cheerio": "",
+    "htmlparser": "1.7.6",
+    "underscore": "",
+    "underscore.string": "",
+    "soupselect": "0.2.0"
   },
   
   "engines": {
