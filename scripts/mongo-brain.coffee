@@ -7,8 +7,6 @@
 #   "mongodb": ">= 1.2.0"
 #
 # Configuration:
-#   MONGODB_USERNAME
-#   MONGODB_PASSWORD
 #   MONGODB_HOST
 #   MONGODB_PORT
 #   MONGODB_DB
@@ -26,8 +24,6 @@ Collection = mongodb.Collection
 Db = mongodb.Db
 
 module.exports = (robot) ->
-  user = process.env.MONGODB_USERNAME || "admin"
-  pass = process.env.MONGODB_PASSWORD || "password"
   host = process.env.MONGODB_HOST || "localhost"
   port = process.env.MONGODB_PORT || "27017"
   dbname = process.env.MONGODB_DB || "hubot"
@@ -40,32 +36,20 @@ module.exports = (robot) ->
   server = new Server(host, port, { })
   db = new Db(dbname, server, { w: 1, native_parser: true })
 
-  db.open((err, client) ->
+  db.open (err, client) ->
     if err
       error(err)
     else
-      db.authenticate(user, pass, (err, success) ->
+      collection = new Collection(client, 'hubot_storage')
+      collection.find().limit(1).toArray (err, results) ->
         if err
-          error(err)
+          throw err
+        else if results
+          robot.brain.mergeData results[0]
         else
-          collection = new Collection(client, 'hubot_storage')
+          robot.logger.info "Initializing new mongo-brain storage"
+          robot.brain.mergeData {}
 
-          collection.find().limit(1).toArray((err, results) ->
-            if results
-              robot.brain.data = results[0]
-              robot.brain.emit 'loaded', results[0]
-            else
-              robot.brain.emit 'save', {}
-              robot.brain.emit 'loaded', {}
-          )
-
-          robot.brain.on('save', () ->
-            collection.save(robot.brain.data, (err) ->
-              console.warn err if err?
-            )
-          )
-        )
-      )
-
-
-
+      robot.brain.on 'save', () ->
+        collection.save robot.brain.data, (err) ->
+          console.warn err if err?
