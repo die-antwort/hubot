@@ -13,7 +13,7 @@ remind = (msg) ->
 module.exports = (robot) ->
   robot.respond /erinnere? mich an (meinen )?Tee( in (\d+))?/i, (msg) ->
     timeout = msg.match[3] || DefaultTimeout
-    msg.send "Tee machen kann ich leider noch nicht. Aber ich werde dich in " + timeout + " Minuten daran erinnern, dass dein Tee fertig ist."
+    msg.send "Okay – ich werde dich in " + timeout + " Minuten daran erinnern, dass dein Tee fertig ist."
     setTimeout (-> remind(msg)), timeout * 1000 * 60
     
   robot.respond /mach mir Tee/i, (msg) ->
